@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Lathe 1.0.14 — a writing theme for Obsidian.
+/* Lathe 1.0.15 — a writing theme for Obsidian.
    Adapted from Verso 1.0.4; folder emphasis and floating status bar inspired
    by Bircharoo 1.0.9. Edit this file directly. No build step or dependencies.
    Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
@@ -1275,6 +1275,19 @@ body:not(.is-mobile):not(.lathe-status-docked) .status-bar:not(:hover):not(:focu
 body { --blur-opacity-m: 100%; --blur-opacity-l: 100%; }
 body.is-mobile :is(.prompt, .suggestion-container, .modal, .menu, .popover) {
   background-color: var(--lathe-surface-raised);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* The mobile drawer switcher is not a .menu: core paints it with the
+   translucent --interactive-normal token or the floating-navigation glass fill.
+   Use solid surfaces without overriding the collapsed list's opacity/visibility. */
+body.is-mobile .workspace-drawer-tab-options-list,
+body.is-mobile .workspace-drawer-tab-select .workspace-tab-header-inner {
+  --raised-background: var(--lathe-surface-raised);
+  --raised-blur: none;
+  --raised-mask-display: none;
+  background: var(--lathe-surface-raised);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
 }
