@@ -1,0 +1,1407 @@
+@charset "UTF-8";
+
+/* Lathe 1.0.13 — a writing theme for Obsidian.
+   Adapted from Verso 1.0.4; folder emphasis and floating status bar inspired
+   by Bircharoo 1.0.9. Edit this file directly. No build step or dependencies.
+   Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
+
+/*
+Verso standalone foundation for Obsidian 1.13+.
+
+Verso began as a visual fork of Minimal by Steph Ango (@kepano). Small
+MIT-licensed portions of its semantic color mapping and image-grid behavior
+remain adapted here; Verso otherwise targets current Obsidian APIs directly.
+
+Copyright (c) 2026 Fabrizio Rinaldi
+Minimal-derived portions copyright (c) 2020-2026 Steph Ango (@kepano)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
+body {
+  --blockquote-style: normal;
+  --blockquote-color: var(--text-muted);
+  --blockquote-border-thickness: 1px;
+  --blockquote-border-color: var(--quote-opening-modifier);
+  --embed-block-shadow-hover: none;
+  --list-spacing: 0.075em;
+  --p-spacing: var(--font-text-size);
+  --heading-spacing: calc(var(--font-text-size) * 1.75);
+  --lathe-heading-gap: calc(var(--font-text-size) * 0.75);
+  --lathe-image-grid-fit: cover;
+  --lathe-image-grid-background: transparent;
+  --lathe-image-grid-gap: 0.5rem;
+  --link-decoration: underline;
+  --link-external-decoration: underline;
+}
+
+.theme-light,
+.theme-dark {
+  --color-red: #d04255;
+  --color-orange: #d5763f;
+  --color-yellow: #e5b567;
+  --color-green: #a8c373;
+  --color-cyan: #73bbb2;
+  --color-blue: #6c99bb;
+  --color-purple: #9e86c8;
+  --color-pink: #b05279;
+  --lathe-accent: hsl(var(--accent-h) var(--accent-s) var(--accent-l));
+  --background-modifier-border-focus: var(--lathe-border-strong);
+  --background-modifier-border-hover: var(--lathe-border-muted);
+  --background-modifier-border: var(--lathe-border-subtle);
+  --background-modifier-form-field: var(--lathe-bg-primary);
+  --background-modifier-hover: var(--lathe-bg-hover);
+  --background-modifier-active-hover: var(--lathe-bg-hover);
+  --checkbox-color: var(--lathe-accent-strong);
+  --code-background: var(--lathe-code-background);
+  --code-normal: var(--lathe-text-normal);
+  --icon-color-active: var(--lathe-text-normal);
+  --icon-color-focused: var(--lathe-text-normal);
+  --icon-color-hover: var(--lathe-text-muted);
+  --icon-color: var(--lathe-text-muted);
+  --interactive-normal: var(--lathe-border-subtle);
+  --interactive-accent-hover: var(--lathe-accent);
+  --interactive-accent: var(--lathe-accent-strong);
+  --interactive-hover: var(--lathe-border-subtle);
+  --list-marker-color: var(--lathe-text-faint);
+  --nav-item-background-active: var(--lathe-bg-hover);
+  --nav-item-background-hover: var(--lathe-bg-hover);
+  --nav-item-color: var(--lathe-text-muted);
+  --nav-item-color-active: var(--lathe-text-normal);
+  --nav-item-color-hover: var(--lathe-text-normal);
+  --nav-item-color-selected: var(--lathe-text-normal);
+  --nav-collapse-icon-color: var(--lathe-text-muted);
+  --nav-collapse-icon-color-collapsed: var(--lathe-text-muted);
+  --nav-indentation-guide-color: var(--lathe-border-subtle);
+  --quote-opening-modifier: var(--lathe-border-muted);
+  --tab-text-color-focused-active: var(--lathe-text-normal);
+  --text-accent-hover: var(--lathe-accent-hover);
+  --text-accent: var(--lathe-accent);
+  --text-error: var(--color-red);
+  --text-faint: var(--lathe-text-faint);
+  --text-highlight-bg: var(--lathe-highlight);
+  --text-muted: var(--lathe-text-muted);
+  --text-normal: var(--lathe-text-normal);
+  --text-on-accent: var(--lathe-on-accent);
+  --text-selection: var(--lathe-selection);
+  --titlebar-text-color-focused: var(--lathe-text-normal);
+  --vault-profile-color: var(--lathe-text-normal);
+  --vault-profile-color-hover: var(--lathe-text-normal);
+}
+
+.theme-light {
+  --lathe-accent-hover: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) - 8%));
+  --lathe-accent-strong: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 6%));
+  --lathe-selection: hsl(var(--accent-h) 50% 76% / 30%);
+  --lathe-highlight: rgb(255 225 0 / 50%);
+  --lathe-on-accent: #fff;
+  --background-modifier-cover: rgb(0 0 0 / 20%);
+}
+
+.theme-dark {
+  --lathe-accent-hover: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) + 8%));
+  --lathe-accent-strong: hsl(var(--accent-h) var(--accent-s) calc(var(--accent-l) - 5%));
+  --lathe-selection: hsl(var(--accent-h) 50% 40% / 30%);
+  --lathe-highlight: rgb(255 177 80 / 30%);
+  --lathe-on-accent: #fff;
+  --background-modifier-cover: rgb(0 0 0 / 50%);
+  --modal-border-color: var(--lathe-border-muted);
+  --interactive-normal: var(--lathe-bg-hover);
+}
+
+/* Obsidian caps the outer CodeMirror sizer, whose internal structure consumes
+   part of the readable width. Size the rendered blocks so the configured
+   measure describes the text itself in both editing and reading views. */
+.markdown-preview-view .markdown-preview-sizer.markdown-preview-sizer,
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-content,
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-sizer {
+  width: 100%;
+  max-width: 100%;
+}
+
+.markdown-preview-view.is-readable-line-width .markdown-preview-sizer > div,
+.markdown-source-view.mod-cm6.is-readable-line-width
+  .cm-sizer
+  > :is(.inline-title, .embedded-backlinks, .metadata-container) {
+  width: var(--lathe-line-width);
+  max-width: var(--lathe-max-width);
+  margin-inline: auto;
+}
+
+/* Core pins every editor block's margin to zero. Center through CodeMirror's
+   content padding so its own block layout and cascade remain untouched. */
+.markdown-source-view.mod-cm6.is-readable-line-width .cm-content {
+  padding-inline: max(calc((100% - var(--file-line-width)) / 2), 0px);
+}
+
+.markdown-source-view.mod-cm6.is-readable-line-width
+  [class~="cm-contentContainer"]
+  > .cm-content
+  > div {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Group consecutive reading-view image embeds without affecting mixed content. */
+/* stylelint-disable selector-pseudo-class-disallowed-list -- CSS has no other way to select only parents with multiple embeds. */
+body:not(.lathe-image-grid-off)
+  .markdown-preview-section
+  :is(div, p):has(> .image-embed ~ .image-embed) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 0 var(--lathe-image-grid-gap);
+  margin-block: var(--lathe-image-grid-gap);
+
+  > .image-embed {
+    display: flex;
+    align-self: stretch;
+    align-items: stretch;
+    line-height: 0;
+  }
+
+  > br {
+    display: none;
+  }
+
+  > .image-embed img {
+    width: 100%;
+    height: 100%;
+    background-color: var(--lathe-image-grid-background);
+    object-fit: var(--lathe-image-grid-fit);
+  }
+}
+/* stylelint-enable selector-pseudo-class-disallowed-list */
+
+/* Media fills the readable line, matching Lathe's established default. */
+body:not(.lathe-natural-media-width)
+  :is(.markdown-source-view, .markdown-preview-view)
+  :is(
+    .image-embed img:not(.link-favicon, .emoji, [width]),
+    img:not(.link-favicon, .emoji, [width]),
+    .external-embed,
+    audio,
+    video
+  ) {
+  width: 100%;
+}
+
+body:not(.lathe-natural-media-width)
+  .image-embed:not([width])
+  .image-wrapper {
+  width: 100%;
+}
+
+:is(.markdown-source-view, .markdown-rendered) :is(video, img:not(.emoji)) {
+  border-radius: var(--lathe-image-radius);
+}
+
+@media (width <= 400pt) {
+  body {
+    --lathe-image-grid-gap: 0.25rem;
+  }
+}
+
+
+/* -------------------------------------------------------------------------
+   Lathe visual layer
+   ------------------------------------------------------------------------- */
+
+/* Lathe's visual layer. Keep component styling focused and let current Obsidian
+   provide the application behavior beneath the standalone foundation. */
+
+body {
+  /* Typography */
+  --font-text-size: 16px;
+  --line-height-normal: 1.65;
+  --table-text-size: calc(var(--font-text-size) * 0.875);
+  --lathe-line-width: 42rem;
+  --lathe-max-width: 88%;
+  --file-line-width: min(var(--lathe-line-width), var(--lathe-max-width));
+
+  /* Shape and motion */
+  --radius-s: 4px;
+  --radius-m: 6px;
+  --radius-l: 8px;
+  --tab-radius-active: 8px 8px 0 0;
+  --tab-curve: 8px;
+  --divider-width: 0.5px;
+  --tab-outline-width: 0.5px;
+  --hr-thickness: 1px;
+  --lathe-transition-duration: 120ms;
+  --lathe-block-radius: var(--radius-l);
+  --lathe-content-radius: 3px;
+  --lathe-image-radius: var(--lathe-content-radius);
+  --callout-radius: var(--lathe-block-radius);
+  --code-radius: var(--lathe-block-radius);
+  --lathe-chrome-icon-color:
+    color-mix(in srgb, var(--text-muted) 72%, var(--text-faint));
+  --lathe-chrome-icon-color-hover: var(--text-muted);
+  --lathe-chrome-icon-color-active:
+    color-mix(in srgb, var(--text-normal) 85%, var(--text-muted));
+  --lathe-note-identity-font: var(--font-interface);
+  --lathe-note-identity-size: 13px;
+
+  /* Titles */
+  --inline-title-margin-bottom: 1.15rem;
+  --inline-title-font: var(--font-text);
+  --inline-title-size: 1.8em;
+  --inline-title-weight: 650;
+  --inline-title-line-height: 1.2;
+  --inline-title-color: var(--text-normal);
+  --file-header-font-size: var(--lathe-note-identity-size);
+  --file-header-font-weight: 450;
+  --file-header-justify: left;
+
+  /* Headings stay distinct without competing with the note. */
+  --h1-size: 1.45em;
+  --h2-size: 1.25em;
+  --h3-size: 1.1em;
+  --h4-size: 1em;
+  --h5-size: 0.9em;
+  --h6-size: 0.85em;
+  --h1-weight: 600;
+  --h2-weight: 600;
+  --h3-weight: 550;
+  --h4-weight: 550;
+  --h5-weight: 500;
+  --h6-weight: 500;
+}
+
+/* Core counts horizontal file padding inside --file-line-width. Removing it
+   keeps the configured value equal to the visible text measure. */
+.is-readable-line-width {
+  --file-margins: 1rem 0 0;
+}
+
+.theme-light {
+  --lathe-bg-primary: #fff;
+  --lathe-bg-secondary: #f5f5f7;
+  --lathe-bg-hover: rgb(24 24 27 / 5.5%);
+  --lathe-tab-hover: rgb(24 24 27 / 4%);
+  --lathe-border-subtle: rgb(0 0 0 / 10%);
+  --lathe-tab-hairline: #e6e6e6;
+  --lathe-border-muted: #d8d8dc;
+  --lathe-border-strong: #c9c9ce;
+  --lathe-text-normal: #29292d;
+  --lathe-text-muted: #62636b;
+  --lathe-text-faint: #6e7077;
+  --lathe-code-background: #f5f5f5;
+  --lathe-inline-code-background: rgb(0 0 0 / 5%);
+}
+
+/* Codex-like surfaces: airy in light mode, layered and focused in dark mode. */
+.theme-light {
+  --background-primary: var(--lathe-bg-primary);
+  --background-primary-alt: var(--lathe-bg-primary);
+  --background-secondary: var(--lathe-bg-secondary);
+  --background-secondary-alt: var(--lathe-bg-secondary);
+  --mobile-sidebar-background: var(--lathe-bg-secondary);
+  --ribbon-background: var(--lathe-bg-secondary);
+  --titlebar-background: var(--lathe-bg-secondary);
+  --titlebar-background-focused: var(--lathe-bg-secondary);
+  --workspace-background-translucent: var(--background-secondary);
+  --divider-color: var(--lathe-border-subtle);
+  --tab-divider-color: var(--lathe-tab-hairline);
+  --tab-outline-color: var(--lathe-tab-hairline);
+  --lathe-prompt-shadow:
+    0 24px 64px rgb(24 24 27 / 14%), 0 4px 16px rgb(24 24 27 / 6%);
+}
+
+.theme-dark {
+  --lathe-bg-primary: #18191b;
+  --lathe-bg-secondary: #222426;
+  --lathe-bg-hover: rgb(255 255 255 / 8.5%);
+  --lathe-tab-hover: rgb(255 255 255 / 6%);
+  --lathe-border-subtle: rgb(255 255 255 / 12%);
+  --lathe-tab-hairline: #2e2e2e;
+  --lathe-border-muted: #444549;
+  --lathe-border-strong: #56575c;
+  --lathe-text-normal: #eeeeef;
+  --lathe-text-muted: #a8a9ad;
+  --lathe-text-faint: #93959c;
+  --lathe-code-background: #222426;
+  --lathe-inline-code-background: rgb(255 255 255 / 7%);
+}
+
+.theme-dark {
+  --background-primary: var(--lathe-bg-primary);
+  --background-primary-alt: var(--lathe-bg-primary);
+  --background-secondary: var(--lathe-bg-secondary);
+  --background-secondary-alt: var(--lathe-bg-secondary);
+  --mobile-sidebar-background: var(--lathe-bg-secondary);
+  --ribbon-background: var(--lathe-bg-secondary);
+  --titlebar-background: var(--lathe-bg-secondary);
+  --titlebar-background-focused: var(--lathe-bg-secondary);
+  --workspace-background-translucent: var(--background-secondary);
+  --divider-color: var(--lathe-border-subtle);
+  --tab-divider-color: var(--lathe-tab-hairline);
+  --tab-outline-color: var(--lathe-tab-hairline);
+  --lathe-prompt-shadow:
+    0 28px 72px rgb(0 0 0 / 42%), 0 4px 18px rgb(0 0 0 / 20%);
+}
+
+/* A collapsed ribbon belongs to the document chrome, including its titlebar
+   cap, and should read as one continuous strip. */
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary).is-collapsed {
+  --titlebar-background: var(--ribbon-background-collapsed);
+
+  transition: none;
+}
+
+body:not(.is-mobile) .workspace-ribbon:is(.mod-left, .mod-primary).is-collapsed::before {
+  border-bottom: 0;
+}
+
+/* Sidebar chrome uses one flat surface without separator rules. */
+body:not(.is-mobile)
+  .workspace-split:is(.mod-left-split, .mod-primary-split)
+  .workspace-tab-header-container {
+  border-bottom: 0;
+}
+
+body:not(.is-mobile)
+  .workspace-split:is(.mod-left-split, .mod-primary-split)
+  .workspace-sidedock-vault-profile {
+  border-top: 0;
+}
+
+/* Keep opaque document chrome on the same visual plane as the note. */
+body:not(.is-mobile, .is-translucent)
+  .workspace-split.mod-root
+  .workspace-tab-header-container {
+  background-color: var(--background-primary);
+}
+
+/* The right dock extends the document instead of introducing a second
+   navigation surface. Its divider still preserves the workspace boundary. */
+body:not(.is-mobile) .workspace-split:is(.mod-right-split, .mod-secondary-split) {
+  --background-secondary: var(--background-primary);
+  --background-secondary-alt: var(--background-primary);
+
+  background-color: var(--background-primary);
+  box-shadow: none;
+}
+
+body:not(.is-mobile)
+  .workspace-split:is(.mod-right-split, .mod-secondary-split)
+  .workspace-tab-header-container {
+  background-color: var(--background-primary);
+}
+
+body.is-translucent:not(.is-fullscreen, .is-mobile)
+  .workspace-split:is(.mod-right-split, .mod-secondary-split),
+body.is-translucent:not(.is-fullscreen, .is-mobile)
+  .workspace-split:is(.mod-right-split, .mod-secondary-split)
+  .workspace-tab-header-container {
+  /* stylelint-disable-next-line declaration-no-important -- Core translucency uses an important background override. */
+  background-color: var(--background-primary) !important;
+}
+
+body:not(.is-mobile)
+  .workspace-sidedock-vault-profile
+  .workspace-drawer-vault-name {
+  font-weight: var(--font-normal);
+}
+
+/* Define tab variables before the translucency overrides that consume them. */
+.workspace .mod-root .workspace-tabs:not(.mod-stacked) {
+  --tab-outline-width: 0.5px;
+  --tab-text-color: var(--text-muted);
+  --tab-text-color-focused: var(--text-muted);
+}
+
+body.lathe-workspace-borders-off {
+  --divider-width: 0;
+  --tab-outline-width: 0;
+}
+
+body.lathe-workspace-borders-off
+  .workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked) {
+  --tab-outline-width: 0;
+}
+
+/* Let macOS vibrancy show through open sidebars while the writing surface,
+   its tab strip, and a collapsed ribbon remain a single, opaque plane. Core
+   marks these backgrounds transparent with !important, so restoring the
+   writing plane must match it. */
+body.is-translucent:not(.is-fullscreen)
+  .workspace-ribbon:is(.mod-left, .mod-primary).is-collapsed,
+body.is-translucent:not(.is-fullscreen)
+  .workspace-ribbon:is(.mod-left, .mod-primary).is-collapsed::before,
+body.is-translucent:not(.is-fullscreen) .titlebar,
+body.is-translucent:not(.is-fullscreen) .workspace-split.mod-root,
+body.is-translucent:not(.is-fullscreen)
+  .workspace-split.mod-root
+  .workspace-tabs,
+body.is-translucent:not(.is-fullscreen)
+  .workspace-split.mod-root
+  .workspace-tab-header-container,
+body.is-translucent:not(.is-fullscreen)
+  .workspace-split.mod-root
+  .workspace-leaf {
+  /* stylelint-disable-next-line declaration-no-important -- Core translucency uses important background overrides. */
+  background-color: var(--background-primary) !important;
+}
+
+/* Sidebar dividers cross vibrancy and shadowed surfaces, so they remain
+   translucent. Tab curves use an opaque hairline to prevent overlapping
+   outlines from darkening their lower corners. */
+body.is-translucent:not(.is-fullscreen) {
+  --divider-color: var(--lathe-border-subtle);
+}
+
+/* A clear document title anchors the writing surface. */
+.inline-title {
+  padding-top: 0.75rem;
+  font-family: var(--inline-title-font);
+  font-size: var(--inline-title-size);
+  letter-spacing: -0.01em;
+  opacity: 1;
+  transition:
+    color var(--lathe-transition-duration) ease,
+    opacity var(--lathe-transition-duration) ease;
+}
+
+.inline-title:hover,
+.inline-title:focus,
+.inline-title:focus-within {
+  color: var(--text-normal);
+  opacity: 1;
+}
+
+.metadata-properties-heading,
+.metadata-properties-title {
+  color: var(--text-muted);
+  font-family: var(--lathe-note-identity-font);
+  font-size: var(--lathe-note-identity-size);
+  font-weight: var(--font-normal);
+  letter-spacing: -0.01em;
+}
+
+.metadata-property-icon {
+  --icon-size: 16px;
+  --icon-stroke: 1.5px;
+}
+
+/* Keep the filename in the tab title bar quiet but legible. */
+.view-header-title-container {
+  opacity: 0.82;
+  transition: opacity var(--lathe-transition-duration) ease;
+}
+
+.view-header-title-parent,
+.view-header-title {
+  color: var(--text-muted);
+  font-family: var(--lathe-note-identity-font);
+  font-size: var(--file-header-font-size);
+  font-weight: var(--file-header-font-weight);
+  letter-spacing: -0.01em;
+}
+
+.view-header-title-parent .view-header-breadcrumb,
+.view-header-title-parent .view-header-breadcrumb-separator {
+  color: var(--text-muted);
+  font-family: var(--lathe-note-identity-font);
+  font-size: var(--file-header-font-size);
+}
+
+.view-header-title-parent .view-header-breadcrumb-separator {
+  font-size: 0;
+}
+
+.view-header-title-parent .view-header-breadcrumb-separator::before {
+  content: "›";
+  color: var(--text-faint);
+  font-size: calc(var(--file-header-font-size) * 0.95);
+  opacity: 0.7;
+}
+
+.is-focused .workspace-leaf.mod-active .view-header-title {
+  color: var(--text-muted);
+}
+
+.view-header-title-container:hover,
+.view-header-title-container:focus-within,
+.view-header:hover .view-header-title-container {
+  opacity: 1;
+}
+
+/* Reduce document chrome contrast so the note remains the visual focus. */
+.workspace .mod-root .workspace-tab-header-inner-title {
+  color: var(--text-muted);
+  font-family: var(--lathe-note-identity-font);
+  font-size: var(--lathe-note-identity-size);
+  font-weight: 450;
+}
+
+.workspace
+  .mod-root
+  .workspace-tab-header.is-active
+  .workspace-tab-header-inner-title {
+  color: var(--text-normal);
+  font-weight: 500;
+}
+
+.workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:not(.is-active)
+  .workspace-tab-header-inner-title {
+  color: var(--text-muted);
+}
+
+.workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:not(.is-active) {
+  opacity: 0.78;
+}
+
+.workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:not(.is-active):hover
+  .workspace-tab-header-inner {
+  border-radius: var(--radius-l);
+  background-color: var(--lathe-tab-hover);
+}
+
+.workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:not(.is-active):hover
+  .workspace-tab-header-inner-title {
+  color: var(--text-normal);
+}
+
+.workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:not(.is-active):hover {
+  opacity: 1;
+}
+
+body:not(.is-mobile)
+  .workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header
+  .workspace-tab-header-inner-close-button {
+  color: var(--text-faint);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    color var(--lathe-transition-duration) ease,
+    opacity var(--lathe-transition-duration) ease;
+}
+
+body:not(.is-mobile)
+  .workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header:is(:hover, :focus-within)
+  .workspace-tab-header-inner-close-button {
+  opacity: 0.65;
+  pointer-events: auto;
+}
+
+body:not(.is-mobile)
+  .workspace
+  .mod-root
+  .workspace-tabs:not(.mod-stacked)
+  .workspace-tab-header
+  .workspace-tab-header-inner-close-button:hover {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+.nav-file-title,
+.nav-folder-title {
+  border-radius: var(--radius-m);
+  font-size: 14px;
+}
+
+/* Keep hierarchy in the spacing itself instead of drawing guide rails. */
+.nav-files-container {
+  --nav-indentation-guide-width: 0px;
+  --nav-item-weight: var(--font-normal);
+  --nav-item-weight-hover: var(--font-normal);
+  --nav-item-weight-active: var(--font-normal);
+
+  padding-inline-start: var(--size-4-2);
+}
+
+/* Core keeps a clicked file in its roving focus state. Its selected background
+   is enough feedback; non-active items retain the ring for keyboard traversal. */
+body:not(.is-phone)
+  .workspace-leaf.mod-active
+  .nav-files-container
+  .nav-file-title.is-active.has-focus:not(.is-being-renamed) {
+  box-shadow: none;
+}
+
+.nav-files-container .collapse-icon svg.svg-icon {
+  width: 9px;
+  height: 9px;
+}
+
+/* Empty-tab actions are quiet shortcuts, not primary calls to action. */
+body:not(.is-mobile)
+  .workspace-leaf-content[data-type="empty"]
+  .empty-state-action-list {
+  font-size: 13px;
+}
+
+body:not(.is-mobile)
+  .workspace-leaf-content[data-type="empty"]
+  .empty-state-action {
+  color: color-mix(in srgb, var(--text-muted) 75%, var(--text-faint));
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  line-height: 32px;
+}
+
+@media (hover: hover) {
+  body:not(.is-mobile)
+    .workspace-leaf-content[data-type="empty"]
+    .empty-state-action:hover {
+    color: var(--text-muted);
+  }
+}
+
+/* Smaller glyphs with unchanged hit targets, like modern desktop toolbars. */
+body:not(.is-mobile)
+  :is(
+    .workspace-ribbon,
+    .workspace-tab-header-container,
+    .nav-header,
+    .view-header,
+    .workspace-sidedock-vault-profile
+  ) {
+  --icon-color: var(--lathe-chrome-icon-color);
+  --icon-color-hover: var(--lathe-chrome-icon-color-hover);
+  --icon-color-focused: var(--lathe-chrome-icon-color-hover);
+  --icon-color-active: var(--lathe-chrome-icon-color-active);
+  --icon-xs: 12px;
+  --icon-s: 14px;
+  --icon-m: 14px;
+  --icon-l: 16px;
+}
+
+body:not(.is-mobile)
+  .workspace-split:is(.mod-left-split, .mod-primary-split)
+  .workspace-tabs.mod-top
+  .workspace-tab-header-container-inner {
+  gap: var(--size-2-2);
+}
+
+body:not(.is-mobile)
+  :is(
+    .workspace-ribbon,
+    .workspace-tab-header-container,
+    .nav-header,
+    .view-header,
+    .workspace-sidedock-vault-profile
+  )
+  :is(
+    .clickable-icon,
+    .workspace-tab-header-inner-icon,
+    .workspace-drawer-vault-switcher-icon
+) {
+  --icon-size: 14px;
+}
+
+.embedded-backlinks .nav-buttons-container {
+  --icon-size: 13px;
+
+  opacity: 0.72;
+  transition: opacity var(--lathe-transition-duration) ease;
+}
+
+.embedded-backlinks .nav-buttons-container:is(:hover, :focus-within) {
+  opacity: 1;
+}
+
+/* Keep the file toolbar close to the primary navigation and align it with the
+   rest of the sidebar instead of centering a short row of controls. */
+body:not(.is-mobile)
+  .workspace-leaf-content[data-type="file-explorer"]
+  .nav-header {
+  padding-top: var(--size-4-1);
+}
+
+body:not(.is-mobile)
+  .workspace-leaf-content[data-type="file-explorer"]
+  .nav-buttons-container {
+  justify-content: flex-start;
+}
+
+/* Embedded backlinks are supporting context, not another document heading. */
+.embedded-backlinks {
+  border-top: 0.5px solid var(--lathe-border-subtle);
+}
+
+.embedded-backlinks .backlink-pane > .tree-item-self,
+.embedded-backlinks .backlink-pane > .tree-item-self:hover {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 550;
+  letter-spacing: -0.01em;
+}
+
+.embedded-backlinks .backlink-pane > .tree-item-self.is-clickable.is-collapsed {
+  color: var(--text-faint);
+}
+
+.embedded-backlinks .backlink-pane > .tree-item-self .tree-item-flair,
+.embedded-backlinks .backlink-pane .search-result-file-title .tree-item-flair {
+  color: var(--text-faint);
+  font-size: 12px;
+  font-weight: 450;
+}
+
+.embedded-backlinks .backlink-pane .search-result-file-title {
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.embedded-backlinks .backlink-pane .search-result .collapse-icon svg.svg-icon {
+  width: 8px;
+  height: 8px;
+  stroke-width: 3px;
+}
+
+/* Command palette and quick switcher read as a light floating sheet rather
+   than a full-size modal, while preserving Obsidian's generous hit targets. */
+body:not(.is-mobile) .prompt {
+  --prompt-border-color: var(--lathe-border-subtle);
+  --prompt-border-width: 0.5px;
+  --search-clear-button-color: var(--text-faint);
+
+  border-radius: 14px;
+  box-shadow: var(--lathe-prompt-shadow);
+}
+
+body:not(.is-mobile) .prompt-input-container {
+  --search-clear-button-size: 14px;
+}
+
+body:not(.is-mobile) input.prompt-input,
+body:not(.is-mobile) input.prompt-input:hover,
+body:not(.is-mobile) input.prompt-input:focus,
+body:not(.is-mobile) input.prompt-input:focus-visible {
+  border-bottom: 0.5px solid var(--lathe-border-subtle);
+}
+
+body:not(.is-mobile) .prompt-results {
+  padding: 10px;
+}
+
+body:not(.is-mobile) .prompt .suggestion-item {
+  border-radius: var(--radius-m);
+}
+
+body:not(.is-mobile) .prompt-instructions {
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+
+body:not(.is-mobile) .prompt-input-container .search-input-clear-button {
+  opacity: 0.58;
+  transition:
+    color var(--lathe-transition-duration) ease,
+    opacity var(--lathe-transition-duration) ease;
+}
+
+body:not(.is-mobile)
+  .prompt-input-container
+  .search-input-clear-button:is(:hover, :active) {
+  color: var(--text-muted);
+  opacity: 1;
+}
+
+/* Quiet document details, with stronger feedback only on interaction. */
+.metadata-container,
+.status-bar {
+  color: var(--text-faint);
+}
+
+/* Keep document statistics visible and available to keyboard users. */
+body:not(.is-mobile) .status-bar {
+  opacity: 1;
+  transition: opacity var(--lathe-transition-duration) ease;
+}
+
+body:not(.is-mobile) .status-bar:is(:hover, :focus-within) {
+  opacity: 1;
+}
+
+body:not(.is-mobile) .status-bar-item.plugin-sync .sync-status-icon {
+  opacity: 1;
+  transition: opacity var(--lathe-transition-duration) ease;
+}
+
+body:not(.is-mobile)
+  :is(
+    .status-bar:hover .status-bar-item.plugin-sync,
+    .status-bar-item.plugin-sync:hover,
+    .status-bar-item.plugin-sync:focus-within
+  )
+  .sync-status-icon {
+  opacity: 1;
+}
+
+:is(.markdown-rendered, .markdown-source-view.mod-cm6) {
+  --link-decoration-thickness: 1px;
+}
+
+.markdown-rendered a,
+.cm-hmd-internal-link,
+.cm-link,
+.cm-url {
+  text-underline-offset: 0.16em;
+}
+
+.markdown-embed {
+  border-radius: var(--lathe-block-radius);
+}
+
+.markdown-rendered :not(pre) > code,
+.cm-s-obsidian .cm-inline-code {
+  --code-background: var(--lathe-inline-code-background);
+  --code-radius: var(--lathe-content-radius);
+}
+
+.callout {
+  --callout-padding: 12px 16px;
+  --callout-content-padding: 8px 0 0;
+  --callout-title-size: 1em;
+  --callout-title-weight: 500;
+
+  font-size: var(--font-text-size);
+}
+
+:is(.markdown-source-view, .markdown-rendered) table :is(th, td) {
+  padding: 4px 10px;
+  border: 0;
+}
+
+:is(.markdown-source-view, .markdown-rendered) table th {
+  background-color: transparent;
+}
+
+:is(.markdown-source-view, .markdown-rendered)
+  table
+  > thead
+  > tr
+  > th,
+:is(.markdown-source-view, .markdown-rendered)
+  table
+  > tbody
+  > tr:not(:last-child)
+  > td {
+  border-bottom: 0.5px solid var(--lathe-border-subtle);
+}
+
+:is(.markdown-source-view, .markdown-rendered)
+  table
+  tr
+  > :first-child {
+  padding-inline-start: 0;
+}
+
+:is(.markdown-source-view, .markdown-rendered)
+  table
+  tr
+  > :last-child {
+  padding-inline-end: 0;
+}
+
+.markdown-source-view.mod-cm6 .cm-table-widget .table-cell-wrapper {
+  padding: 4px 10px;
+}
+
+.markdown-source-view.mod-cm6
+  .cm-table-widget
+  tr
+  > :first-child
+  .table-cell-wrapper {
+  padding-inline-start: 0;
+}
+
+.markdown-source-view.mod-cm6
+  .cm-table-widget
+  tr
+  > :last-child
+  .table-cell-wrapper {
+  padding-inline-end: 0;
+}
+
+.callout-title {
+  align-items: center;
+  gap: 6px;
+}
+
+:is(.callout-icon, .callout-fold) svg {
+  width: 14px;
+  height: 14px;
+}
+
+.cm-embed-block.cm-callout .edit-block-button {
+  color: var(--text-muted);
+  opacity: 0.7;
+  transition:
+    color var(--lathe-transition-duration) ease,
+    opacity var(--lathe-transition-duration) ease;
+}
+
+.cm-embed-block.cm-callout .edit-block-button:hover {
+  color: var(--text-muted);
+  opacity: 0.9;
+}
+
+.callout-content > :first-child {
+  margin-block-start: 0;
+}
+
+.callout-content > :last-child {
+  margin-block-end: 0;
+}
+
+@media (width <= 600px) {
+  body {
+    --font-text-size: 16px;
+    --lathe-line-width: 100%;
+    --lathe-max-width: 100%;
+  }
+
+  .is-readable-line-width {
+    --file-margins: 1rem var(--file-margins-x) 0;
+  }
+}
+
+
+/* @settings
+
+name: Lathe
+id: lathe-style
+settings:
+  -
+    id: inline-title-size
+    title: Document title size
+    type: variable-number-slider
+    default: 1.8
+    min: 1.25
+    max: 2.5
+    step: 0.05
+    format: em
+  -
+    id: lathe-folder-weight
+    title: Folder weight
+    type: variable-number-slider
+    default: 600
+    min: 400
+    max: 750
+    step: 50
+  -
+    id: lathe-status-docked
+    title: Use standard status-bar styling
+    description: Use Obsidian’s default spacing and surface for the corner status bar.
+    type: class-toggle
+    default: false
+  -
+    id: lathe-typography
+    title: Typography and layout
+    type: heading
+    level: 2
+    collapsed: false
+  -
+    id: line-height-normal
+    title: Line height
+    type: variable-number-slider
+    default: 1.65
+    min: 1.2
+    max: 2
+    step: 0.05
+  -
+    id: lathe-line-width
+    title: Normal line width
+    type: variable-number-slider
+    default: 42
+    min: 24
+    max: 72
+    step: 1
+    format: rem
+  -
+    id: lathe-max-width
+    title: Maximum pane width
+    type: variable-number-slider
+    default: 88
+    min: 60
+    max: 100
+    step: 1
+    format: '%'
+  -
+    id: lathe-features
+    title: Features
+    type: heading
+    level: 2
+    collapsed: false
+  -
+    id: lathe-natural-media-width
+    title: Natural media width
+    description: Keep images and videos at their natural width instead of filling the readable line.
+    type: class-toggle
+    default: false
+  -
+    id: lathe-image-grid-off
+    title: Disable image grids
+    description: Show consecutive images normally instead of arranging them in a responsive grid.
+    type: class-toggle
+    default: false
+  -
+    id: lathe-workspace-borders-off
+    title: Hide workspace borders
+    description: Remove divider lines and tab outlines for a flatter workspace.
+    type: class-toggle
+    default: false
+*/
+
+/* -------------------------------------------------------------------------
+   Lathe — solid surfaces, clear hierarchy, and a floating utility bar.
+   ------------------------------------------------------------------------- */
+body {
+  --lathe-folder-weight: 600;
+  --menu-background: var(--lathe-surface-raised);
+  --modal-background: var(--lathe-surface-raised);
+  --prompt-background: var(--lathe-surface-raised);
+  --suggestion-background: var(--lathe-surface-raised);
+  --popover-background: var(--lathe-surface-raised);
+  --status-bar-background: var(--lathe-surface-raised);
+  --status-bar-text-color: var(--text-muted);
+  --menu-backdrop-filter: none;
+  --modal-backdrop-filter: none;
+  --prompt-backdrop-filter: none;
+  --popover-backdrop-filter: none;
+  --modal-radius: 14px;
+  --modal-border-color: var(--lathe-border-muted);
+  --modal-shadow: var(--lathe-prompt-shadow);
+  --menu-shadow: var(--lathe-prompt-shadow);
+  --input-radius: 6px;
+  --input-shadow: none;
+  --input-shadow-hover: none;
+  --nav-item-weight-active: 500;
+  --table-text-size: var(--font-text-size);
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-light {
+  --lathe-surface-raised: #fff;
+  --lathe-surface-edge: #dedee3;
+  --lathe-status-shadow: 0 2px 8px rgb(0 0 0 / 6%), 0 8px 24px rgb(0 0 0 / 4%);
+  --nav-item-background-active: color-mix(in srgb, var(--lathe-accent) 10%, var(--background-secondary));
+}
+.theme-dark {
+  --lathe-surface-raised: #2b2d30;
+  --lathe-surface-edge: #45474c;
+  --lathe-status-shadow: 0 2px 8px rgb(0 0 0 / 20%), 0 8px 24px rgb(0 0 0 / 18%);
+  /* Preserve the chosen accent hue, lifting text luminance on dark grounds. */
+  --text-accent: hsl(var(--accent-h) var(--accent-s) max(var(--accent-l), 72%));
+  --text-accent-hover: hsl(var(--accent-h) var(--accent-s) max(var(--accent-l), 80%));
+  --link-color: var(--text-accent);
+  --link-color-hover: var(--text-accent-hover);
+  --link-external-color: var(--text-accent);
+  --link-external-color-hover: var(--text-accent-hover);
+  /* Lift the chosen accent before mixing: raw deep blues disappear into charcoal. */
+  --nav-item-background-active: color-mix(in srgb, var(--text-accent) 35%, var(--background-secondary));
+}
+
+/* Folder labels retain their emphasis on hover and when keyboard-focused. */
+.nav-files-container .nav-folder-title {
+  --nav-item-weight: var(--lathe-folder-weight);
+  --nav-item-weight-hover: var(--lathe-folder-weight);
+  --nav-item-weight-active: var(--lathe-folder-weight);
+  color: var(--text-normal);
+  font-weight: var(--lathe-folder-weight);
+}
+.nav-files-container .nav-file-title.is-active {
+  font-weight: 500;
+}
+.nav-folder-title .collapse-icon {
+  color: var(--text-muted);
+}
+.inline-title {
+  opacity: 1;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+  overflow-wrap: anywhere;
+}
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  text-wrap: balance;
+}
+:is(.status-bar, .tree-item-flair, .markdown-rendered table) {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Opaque paint remains intact with Obsidian's translucency option enabled.
+   Core sets these backgrounds with !important, so match it only here. */
+body.is-translucent:not(.is-fullscreen) .app-container,
+body.is-translucent:not(.is-fullscreen) .workspace,
+body.is-translucent:not(.is-fullscreen) .workspace-split:is(.mod-left-split, .mod-primary-split),
+body.is-translucent:not(.is-fullscreen) .workspace-split:is(.mod-left-split, .mod-primary-split) .workspace-tabs,
+body.is-translucent:not(.is-fullscreen) .workspace-split:is(.mod-left-split, .mod-primary-split) .workspace-leaf,
+body.is-translucent:not(.is-fullscreen) .workspace-split:is(.mod-left-split, .mod-primary-split) .workspace-tab-header-container {
+  background-color: var(--background-secondary) !important;
+}
+body.is-popout-window .titlebar {
+  background-color: var(--titlebar-background) !important;
+}
+:is(.menu, .modal, .prompt, .suggestion-container, .popover, .hover-popover) {
+  background-color: var(--lathe-surface-raised);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+:is(.menu, .suggestion-container, .popover, .hover-popover) {
+  border: 1px solid var(--lathe-surface-edge);
+  box-shadow: var(--lathe-prompt-shadow);
+}
+.modal.mod-settings .vertical-tab-header {
+  background-color: var(--background-secondary);
+}
+.modal.mod-settings .vertical-tab-content-container {
+  background-color: var(--lathe-surface-raised);
+}
+.notice {
+  background-color: var(--lathe-surface-raised);
+  color: var(--text-normal);
+  border: 1px solid var(--lathe-surface-edge);
+  box-shadow: var(--lathe-status-shadow);
+}
+
+/* Solid fill avoids both text bleed-through and fixed-element blur artifacts. */
+body:not(.is-mobile):not(.lathe-status-docked) .status-bar {
+  right: 0;
+  bottom: 0;
+  max-width: 100%;
+  min-height: 28px;
+  margin: 0;
+  padding: 2px 6px;
+  gap: 2px;
+  align-items: center;
+  border: 1px solid var(--lathe-surface-edge);
+  border-right: 0;
+  border-bottom: 0;
+  border-radius: 9px 0 0 0;
+  background-color: var(--lathe-surface-raised);
+  color: var(--text-muted);
+  box-shadow: none;
+  font-size: 12px;
+  opacity: 1;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+body:not(.is-mobile):not(.lathe-status-docked) .status-bar-item {
+  min-height: 24px;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+body:not(.is-mobile) .status-bar-item.mod-clickable:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+/* Give the last line room to scroll clear of the corner bar. */
+body:not(.is-mobile):not(.lathe-status-docked) .markdown-preview-view {
+  padding-bottom: 64px;
+}
+body:not(.is-mobile):not(.lathe-status-docked) .markdown-source-view.mod-cm6 .cm-scroller {
+  padding-bottom: 64px;
+}
+body:not(.is-mobile):not(.lathe-status-docked) .status-bar:not(:hover):not(:focus-within) .cmdr-adder {
+  display: none;
+}
+
+/* Keyboard focus remains distinct from selection. */
+.nav-files-container .tree-item-self.has-focus:not(.is-active),
+.status-bar-item.mod-clickable:focus-visible {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: -2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  body { --lathe-transition-duration: 0ms; }
+}
+@media (width <= 600px) {
+  body { --inline-title-size: 1.6em; }
+}
+@media print {
+  body {
+    --text-normal: #111;
+    --text-muted: #444;
+    --text-faint: #555;
+    --background-primary: #fff;
+    --background-secondary: #fff;
+    --text-accent: #222;
+    --link-color: #222;
+    --link-external-color: #222;
+    --code-background: #f3f3f3;
+  }
+  .status-bar { display: none; }
+  .inline-title { color: #111; opacity: 1; }
+}
+
+/* Obsidian 1.14 mobile sheets use blur opacity variables internally. */
+body { --blur-opacity-m: 100%; --blur-opacity-l: 100%; }
+body.is-mobile :is(.prompt, .suggestion-container, .modal, .menu, .popover) {
+  background-color: var(--lathe-surface-raised);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* Tabs: sidebar-colored chrome, readable labels, and a neutral active tab. */
+.theme-light {
+  --lathe-tab-strip: var(--lathe-bg-secondary);
+  --lathe-tab-active: var(--background-primary);
+  --lathe-tab-label: #595c65;
+  --lathe-tab-edge: #ededf0;
+}
+.theme-dark {
+  --lathe-tab-strip: var(--lathe-bg-secondary);
+  --lathe-tab-active: var(--background-primary);
+  --lathe-tab-label: #b9bdc6;
+  --lathe-tab-edge: #303234;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) {
+  --tab-curve: 6px;
+  --tab-background-active: var(--lathe-tab-active);
+  --tab-container-background: var(--lathe-tab-strip);
+  --tab-container-padding-start: 0px;
+  --tab-outline-color: var(--lathe-tab-edge);
+  --tab-outline-width: 1px;
+  --tab-text-color: var(--lathe-tab-label);
+  --tab-text-color-focused: var(--lathe-tab-label);
+  --tab-text-color-active: var(--text-normal);
+  --tab-text-color-focused-active: var(--text-normal);
+  --tab-text-color-focused-active-current: var(--text-normal);
+}
+/* Match core's important translucency override, and the earlier writing-plane rule. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container {
+  background-color: var(--lathe-tab-strip) !important;
+  border-bottom: var(--tab-outline-width) solid var(--lathe-tab-edge);
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header:not(.is-active) {
+  opacity: 1;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header:not(.is-active) :is(.workspace-tab-header-inner-title, .workspace-tab-header-inner-icon) {
+  color: var(--lathe-tab-label);
+  opacity: 1;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+  background-color: var(--lathe-tab-active);
+  box-shadow: inset 1px 0 var(--lathe-tab-edge), inset -1px 0 var(--lathe-tab-edge), inset 0 1px var(--lathe-tab-edge);
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active :is(.workspace-tab-header-inner-title, .workspace-tab-header-inner-icon) {
+  color: var(--text-normal);
+  opacity: 1;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active .workspace-tab-header-inner-title {
+  font-weight: 600;
+}
+/* Core adds an inset underline on hover; keep only Lathe’s soft fill feedback. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header:not(.is-active):hover {
+  box-shadow: none;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header:not(.is-active):hover .workspace-tab-header-inner-title {
+  color: var(--text-normal);
+}
+/* Attached tabs start at the writing pane’s edge. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header-container-inner {
+  margin-inline-start: 0;
+  margin-bottom: calc(-1 * var(--tab-outline-width));
+  padding-inline-start: 0;
+}
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::before,
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header::after {
+  display: none;
+}
+/* Small concave joins soften the active tab's connection to the page.
+   The first tab has no left flare, preserving the continuous outside edge. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active:not(:first-child)::before,
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active::after {
+  display: block;
+  pointer-events: none;
+}
+/* Keep the sidebar resize target and its hover/drag feedback, without a resting rule. */
+body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-primary-split) > .workspace-leaf-resize-handle:not(:hover):not(.is-active):not(.mobile-tap) {
+  border-color: transparent;
+}
+/* The page uses the same quiet hairline on both exposed edges.
+   Keep this below the tab strip so no divider crosses the sidebar controls. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-container {
+  border-inline-start: var(--tab-outline-width) solid var(--lathe-tab-edge);
+}
+/* Honor the existing optional border toggle. */
+body.lathe-workspace-borders-off:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) {
+  --tab-outline-width: 0;
+}
+body.lathe-workspace-borders-off:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) .workspace-tab-header.is-active {
+  box-shadow: none;
+}
+
+/* Note typography: space separates sections and connects each heading to its text.
+   Use the configured body size as the unit, even when a heading has a larger font.
+   Do not change CodeMirror line margins or hide the user's blank lines. */
+.markdown-source-view.mod-cm6.is-live-preview .cm-content > .cm-line.HyperMD-header {
+  padding-top: var(--heading-spacing);
+  padding-bottom: var(--lathe-heading-gap);
+}
+.markdown-source-view.mod-cm6.is-live-preview .cm-content > .cm-line.HyperMD-header:first-child {
+  padding-top: 0;
+}
+.markdown-source-view.mod-cm6.is-live-preview .cm-content > .cm-line.HyperMD-header + .cm-line.HyperMD-header {
+  padding-top: 0;
+}
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) {
+  margin-block-end: var(--lathe-heading-gap);
+}
+/* Reading view wraps blocks in .el-* containers; HTML embeds can use direct siblings.
+   Remove the following block's top margin so it cannot swallow the heading gap. */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) + :is(p, ul, ol, pre, table, blockquote),
+.markdown-rendered div:is(.el-h1, .el-h2, .el-h3, .el-h4, .el-h5, .el-h6) + div > :is(p, ul, ol, pre, table, blockquote) {
+  margin-block-start: 0;
+}
+/* Consecutive headings belong to the same section. */
+.markdown-rendered :is(h1, h2, h3, h4, h5, h6) + :is(h1, h2, h3, h4, h5, h6),
+.markdown-rendered div:is(.el-h1, .el-h2, .el-h3, .el-h4, .el-h5, .el-h6) + div > :is(h1, h2, h3, h4, h5, h6) {
+  margin-block-start: 0;
+}
+/* Reading-only wrapping avoids disturbing the editor's cursor geometry. */
+.markdown-rendered :is(p, li) {
+  text-wrap: pretty;
+}
+
+/* A small contrast lift for ordinary filenames; folders and selection keep their hierarchy. */
+.theme-dark .nav-files-container .nav-file-title {
+  --nav-item-color: #b9bbc2;
+}
+
+.theme-light .nav-files-container .nav-file-title {
+  --nav-item-color: #555760;
+}
