@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Lathe 1.0.13 — a writing theme for Obsidian.
+/* Lathe 1.0.14 — a writing theme for Obsidian.
    Adapted from Verso 1.0.4; folder emphasis and floating status bar inspired
    by Bircharoo 1.0.9. Edit this file directly. No build step or dependencies.
    Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
@@ -1143,7 +1143,11 @@ body {
   color: var(--text-normal);
   font-weight: var(--lathe-folder-weight);
 }
+/* Core's clickable-row hover selector uses these weights and overrides font-weight. */
 .nav-files-container .nav-file-title.is-active {
+  --nav-item-weight: 500;
+  --nav-item-weight-hover: 500;
+  --nav-item-weight-active: 500;
   font-weight: 500;
 }
 .nav-folder-title .collapse-icon {
