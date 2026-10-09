@@ -1,6 +1,6 @@
 # Lathe
 
-A writing theme for [Obsidian](https://obsidian.md), built on Verso with inspiration from Bircharoo.
+A writing theme for [Obsidian](https://obsidian.md), built on Verso.
 
 ![Lathe in light mode](screenshots/light.png)
 
@@ -57,6 +57,8 @@ Issues and pull requests are welcome. For visual bugs, include your Obsidian ver
 
 ## Credits and license
 
-Lathe adapts [Verso](https://github.com/linuz90/obsidian-verso) by Fabrizio Rinaldi, including its [Minimal](https://github.com/kepano/obsidian-minimal)-derived foundation by Steph Ango. Folder emphasis and the original status-bar treatment were inspired by [Bircharoo](https://github.com/mattbirchler/bircharoo) by Matt Birchler.
+Lathe adapts [Verso](https://github.com/linuz90/obsidian-verso) by Fabrizio Rinaldi, including its [Minimal](https://github.com/kepano/obsidian-minimal)-derived foundation by Steph Ango.
+
+Early visual inspiration: [Bircharoo](https://github.com/mattbirchler/bircharoo) by Matt Birchler.
 
 Copyright © 2026 Yury Molodtsov. Released under the [MIT License](LICENSE). Upstream notices are preserved in [THIRD-PARTY-NOTICES](THIRD-PARTY-NOTICES) and the stylesheet.
