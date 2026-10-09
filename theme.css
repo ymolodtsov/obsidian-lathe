@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Lathe 1.0.17 — a writing theme for Obsidian.
+/* Lathe 1.0.18 — a writing theme for Obsidian.
    Adapted from Verso 1.0.4.
    Edit this file directly. No build step or dependencies.
    Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
@@ -664,27 +664,39 @@ body:not(.is-phone)
   height: 9px;
 }
 
-/* Empty-tab actions are quiet shortcuts, not primary calls to action. */
-body:not(.is-mobile)
-  .workspace-leaf-content[data-type="empty"]
-  .empty-state-action-list {
+/* New-tab actions share the workspace radius; shortcut hints stay compact. */
+body:not(.is-mobile) .workspace-leaf-content[data-type="empty"] .empty-state-action-list:not(.mod-unknown) {
+  width: 240px;
+  max-width: 100%;
+  gap: 8px;
   font-size: 13px;
+  line-height: 1.4;
 }
-
-body:not(.is-mobile)
-  .workspace-leaf-content[data-type="empty"]
-  .empty-state-action {
-  color: color-mix(in srgb, var(--text-muted) 75%, var(--text-faint));
+body:not(.is-mobile) .workspace-leaf-content[data-type="empty"] .empty-state-action-list:not(.mod-unknown) > :is(.empty-state-action, .text-icon-button.mod-pill) {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--lathe-border-subtle);
+  border-radius: var(--lathe-workspace-radius);
+  color: var(--text-normal);
+  font-size: inherit;
   font-weight: 450;
   letter-spacing: -0.01em;
-  line-height: 32px;
+  line-height: 1.4;
+}
+body:not(.is-mobile) .workspace-leaf-content[data-type="empty"] .empty-state-hotkey {
+  padding: 2px 5px;
+  margin-inline-end: 0;
+  border-radius: var(--radius-s);
+  background-color: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 18px;
 }
 
-@media (hover: hover) {
-  body:not(.is-mobile)
-    .workspace-leaf-content[data-type="empty"]
-    .empty-state-action:hover {
-    color: var(--text-muted);
+@container empty-state (max-width: 230px) {
+  body:not(.is-mobile) .workspace-leaf-content[data-type="empty"] .empty-state-action-list:not(.mod-unknown) {
+    width: auto;
   }
 }
 
