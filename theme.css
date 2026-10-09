@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Lathe 1.0.15 — a writing theme for Obsidian.
+/* Lathe 1.0.16 — a writing theme for Obsidian.
    Adapted from Verso 1.0.4.
    Edit this file directly. No build step or dependencies.
    Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
@@ -1373,6 +1373,23 @@ body:not(.is-mobile) .workspace-split:is(.mod-left-split, .mod-primary-split) > 
    Keep this below the tab strip so no divider crosses the sidebar controls. */
 body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) > .workspace-tab-container {
   border-inline-start: var(--tab-outline-width) solid var(--lathe-tab-edge);
+}
+/* Round the exposed page corner only when the first tab is inactive.
+   The top and side borders belong to separate elements; this small overlay
+   joins them into one 8px arc without moving the editor or intercepting input. */
+body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked):has(> .workspace-tab-header-container > .workspace-tab-header-container-inner > .workspace-tab-header:first-child:not(.is-active)) > .workspace-tab-header-container::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(circle at bottom right,
+    transparent calc(8px - var(--tab-outline-width)),
+    var(--lathe-tab-edge) calc(8px - var(--tab-outline-width)) 8px,
+    var(--lathe-tab-strip) 8px);
 }
 /* Honor the existing optional border toggle. */
 body.lathe-workspace-borders-off:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) {
