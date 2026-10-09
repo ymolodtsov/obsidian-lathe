@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* Lathe 1.0.16 — a writing theme for Obsidian.
+/* Lathe 1.0.17 — a writing theme for Obsidian.
    Adapted from Verso 1.0.4.
    Edit this file directly. No build step or dependencies.
    Original license follows; additional credits are in THIRD-PARTY-NOTICES. */
@@ -238,8 +238,9 @@ body {
   --radius-s: 4px;
   --radius-m: 6px;
   --radius-l: 8px;
-  --tab-radius-active: 8px 8px 0 0;
-  --tab-curve: 8px;
+  --lathe-workspace-radius: var(--radius-l);
+  --tab-radius-active: var(--lathe-workspace-radius) var(--lathe-workspace-radius) 0 0;
+  --tab-curve: var(--lathe-workspace-radius);
   --divider-width: 0.5px;
   --tab-outline-width: 0.5px;
   --hr-thickness: 1px;
@@ -1214,7 +1215,7 @@ body:not(.is-mobile):not(.lathe-status-docked) .status-bar {
   border: 1px solid var(--lathe-surface-edge);
   border-right: 0;
   border-bottom: 0;
-  border-radius: 9px 0 0 0;
+  border-radius: var(--lathe-workspace-radius) 0 0 0;
   background-color: var(--lathe-surface-raised);
   color: var(--text-muted);
   box-shadow: none;
@@ -1306,7 +1307,7 @@ body.is-mobile .workspace-drawer-tab-select .workspace-tab-header-inner {
   --lathe-tab-edge: #303234;
 }
 body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) {
-  --tab-curve: 6px;
+  --tab-curve: var(--lathe-workspace-radius);
   --tab-background-active: var(--lathe-tab-active);
   --tab-container-background: var(--lathe-tab-strip);
   --tab-container-padding-start: 0px;
@@ -1376,20 +1377,20 @@ body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) > .w
 }
 /* Round the exposed page corner only when the first tab is inactive.
    The top and side borders belong to separate elements; this small overlay
-   joins them into one 8px arc without moving the editor or intercepting input. */
+   joins them into one workspace-radius arc without moving the editor or intercepting input. */
 body:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked):has(> .workspace-tab-header-container > .workspace-tab-header-container-inner > .workspace-tab-header:first-child:not(.is-active)) > .workspace-tab-header-container::after {
   content: "";
   position: absolute;
   top: 100%;
   left: 0;
-  width: 8px;
-  height: 8px;
+  width: var(--lathe-workspace-radius);
+  height: var(--lathe-workspace-radius);
   z-index: 2;
   pointer-events: none;
   background: radial-gradient(circle at bottom right,
-    transparent calc(8px - var(--tab-outline-width)),
-    var(--lathe-tab-edge) calc(8px - var(--tab-outline-width)) 8px,
-    var(--lathe-tab-strip) 8px);
+    transparent calc(var(--lathe-workspace-radius) - var(--tab-outline-width)),
+    var(--lathe-tab-edge) calc(var(--lathe-workspace-radius) - var(--tab-outline-width)) var(--lathe-workspace-radius),
+    var(--lathe-tab-strip) var(--lathe-workspace-radius));
 }
 /* Honor the existing optional border toggle. */
 body.lathe-workspace-borders-off:not(.is-mobile) .workspace .mod-root .workspace-tabs:not(.mod-stacked) {
