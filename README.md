@@ -1,8 +1,16 @@
 # Lathe
 
-A writing theme for [Obsidian](https://obsidian.md), built on Verso.
+A writing theme for [Obsidian](https://obsidian.md).
 
 ![Lathe in light mode](screenshots/light.png)
+
+Lathe is designed to make Obsidian feel pleasant and modern. 
+
+It features minimal borders, soft colors, but preserves the contrast where it matters.
+
+A lathe is an ancient and foundational machine tool, often referred to as the "Mother of All Machine Tools". It's designed to shape materials like metal, wood, and glass, and as a name, it feels very fitting to Obsidian. 
+
+It is a fork of [Verso](https://github.com/linuz90/obsidian-verso) by Fabrizio Rinaldi that adjusts elements such as tabs, menus, and the sidebar to add contrast and make Obsidian easier to use. 
 
 ## Features
 
